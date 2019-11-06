@@ -3,9 +3,9 @@
 #include <windows.h>
 #include <conio.h>
 
-#define UP 1
-#define DOWN 2
-#define ENTER 3
+#define UP 2
+#define DOWN 3
+#define ENTER 4
 
 
 void ui();
@@ -82,20 +82,27 @@ int menu(){
         		if(y<24){
         			gotoxy(x-5, y);
         			printf(" ");
-        			gotoxy(x-5, y+2);
+        			y=y+2;
+        			gotoxy(x-5, y);
 					printf(">"); 
-				}
+			 }
 				break;
 			}
             case UP: {
                 if(y>20){
                 	gotoxy(x-5, y);
         			printf(" ");
-        			gotoxy(x-5, y-2);
+        			y=y-2;
+        			gotoxy(x-5, y);
 					printf(">"); 
 				}
 				break;
             }
+            case ENTER: {
+            	gotoxy(x+17,y);
+            	printf("º±≈√!");
+				break;
+			}
         }
     }
 }
@@ -110,7 +117,7 @@ int keyControl() {
 	else if ( temp == 'w' || temp == 'W'){
 		return UP;
 	}
-	else if (temp == '\n'){
+	else if (temp == ' '){
 		return ENTER;
 	}
 }
