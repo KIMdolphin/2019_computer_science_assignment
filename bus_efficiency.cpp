@@ -3,9 +3,11 @@
 #include <windows.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
-#define UP 2
-#define DOWN 3
+#define UP 72
+#define DOWN 80
 #define ENTER 4
 
 
@@ -18,6 +20,7 @@ int keyControl();
 void exit(int status);
 void bus();
 void start();
+void time();
 
 int main(){
 	ui();
@@ -27,7 +30,7 @@ int main(){
 }
 
 void ui() {
-	system("mode con cols=200 lines=120 | title bus efficiency");
+	system("mode con cols=200 lines=120 | title bus efficiency(버스이야기)");
 }
 
 void title() {
@@ -129,10 +132,10 @@ int menu(){
 
 int keyControl() {
 	char temp = _getch();
-	if (temp == 's' || temp == 'S'){
+	if (temp == 80){
 		return DOWN;
 	}
-	else if ( temp == 'w' || temp == 'W'){
+	else if ( temp == 72){
 		return UP;
 	}
 	else if (temp == ' '){
@@ -165,7 +168,7 @@ void bus(){
 void description() {
 	bus();
 	gotoxy(7,10);
-	printf("세미나를 가는 길... ");
+	printf("행사를 가는 길..");
 	gotoxy(7,12);
 	printf("늦잠을 잔 상태라 시간에 맞추어 가야하는데 바로 오는 버스는 없다.");
 	gotoxy(7,14);
@@ -191,6 +194,12 @@ void description() {
     
 void start(){
 	bus();
+	gotoxy(7,10);
+	printf("지금 현재 시각은?");
+	gotoxy(7,11);
+	time(); 
+	gotoxy(80, 25);
+	printf("space를 눌러 메인 화면으로..");
 	while (1) { 
 		int ch = keyControl();
         switch (ch) {           
@@ -201,3 +210,42 @@ void start(){
 			}
         }
     }
+    
+void time(){
+	char week[10] = "\0";
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    switch(tm.tm_wday){
+  	case 0: {
+  		strcpy(week, "일");
+		break;
+	  }
+	case 1: {
+  		strcpy(week, "월");
+		break;
+	  }
+	case 2: {
+  		strcpy(week, "화");
+		break;
+	  }
+	case 3: {
+  		strcpy(week, "수");
+		break;
+	  }
+	case 4: {
+  		strcpy(week, "목");
+		break;
+	  }
+	case 5: {
+  		strcpy(week, "금");
+		break;
+	  }
+	case 6: {
+  		strcpy(week, "토");
+		break;
+	  }            
+  }
+  printf("%d-%d-%d (%s) %d:%d:%d\n",
+         tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, week, tm.tm_hour, tm.tm_min, tm.tm_sec);
+ 
+}
