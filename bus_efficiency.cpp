@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <string>
 
 #define UP 72
 #define DOWN 80
@@ -21,6 +22,12 @@ void exit(int status);
 void bus();
 void start();
 void time();
+int readfile();
+void insert(int idx, char cho);
+void append(char cho);
+
+
+char tablelist[100];
 
 int main(){
 	ui();
@@ -226,6 +233,8 @@ void start(){
 	else{
 		printf(">> 걸어가므로 4분이 소요됩니다"); 
 	}
+	gotoxy(7,18);
+	readfile();
 	while (1) { 
 		int ch = keyControl();
         switch (ch) {           
@@ -275,3 +284,23 @@ void time(){
          tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, week, tm.tm_hour, tm.tm_min, tm.tm_sec);
  
 }
+
+int readfile(){
+	Sleep(1000);
+	FILE *fps;
+	char str[100];
+	int tempnum;
+	
+	fps=fopen("table.txt", "rt");
+	
+	if(fps==NULL){
+		printf("실패\n");
+	}
+	while(feof(fps)==0){
+		fgets(str, 100, fps);
+  
+    }    
+
+	fclose(fps);
+}
+
