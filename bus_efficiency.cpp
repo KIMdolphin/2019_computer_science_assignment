@@ -153,12 +153,20 @@ void bus(){
 		gotoxy(0,2+i);
 	    printf(" ■■");
 	}
+	gotoxy(128,19);
+	printf(" ■■");
+	gotoxy(128,25);
+	printf(" ■■");
+	for(int i=0; i<7; i++){
+		gotoxy(124,19+i);
+		printf(" ■■");
+	}
 	for(int i=0; i<15; i++){
 		gotoxy(110,2+i);
 	    printf(" ■■");
 	}
 	printf("■■■■■■■■■■");
-	gotoxy(0,28);
+	gotoxy(0,27);
 	printf(" ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 	printf(" ■■■                  ■■■■■■■■■■■■■■                                        ■■■■■■■■■■■■■■\n");
 	printf(" ■■                      ■■■■■■■■■■■                                               ■■■■■■■■■■■\n");
@@ -172,7 +180,7 @@ void description() {
 	gotoxy(7,12);
 	printf("늦잠을 잔 상태라 시간에 맞추어 가야하는데 바로 오는 버스는 없다.");
 	gotoxy(7,14);
-	printf("터미널에서 바로 천수동 정류장까지 가는 버스가 7분 남았고,");
+	printf("한국병원에서 바로 천수동 정류장까지 가는 버스가 7분 남았고,");
 	gotoxy(7,16);
 	printf("시청으로 가는 버스는 곧 도착한다.\n");
 	gotoxy(7,18);
@@ -194,12 +202,30 @@ void description() {
     
 void start(){
 	bus();
+	gotoxy(80, 25);
+	printf("space를 누르면 메인 화면으로 이동합니다..");
 	gotoxy(7,10);
 	printf("지금 현재 시각은?");
 	gotoxy(7,11);
 	time(); 
-	gotoxy(80, 25);
-	printf("space를 눌러 메인 화면으로..");
+	gotoxy(7,13);
+	int after; 
+	printf("지금부터 약 몇 분 후에 출발하나요? :");
+	gotoxy(47,13);
+	printf("(분)");
+	gotoxy(45,13); 
+	scanf("%d", &after); 
+	gotoxy(7,15);
+	char run[10];
+	printf("정류장에 뛰어가나요? (네/아니오) : ");
+	scanf("%s", run); 
+	gotoxy(7,16);
+	if(strcmp(run, "네") == 0){
+		printf(">> 뛰어가므로 2분이 소요됩니다"); 
+	} 
+	else{
+		printf(">> 걸어가므로 4분이 소요됩니다"); 
+	}
 	while (1) { 
 		int ch = keyControl();
         switch (ch) {           
