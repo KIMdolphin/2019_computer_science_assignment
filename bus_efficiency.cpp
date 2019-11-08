@@ -242,7 +242,7 @@ void start(){
 	} 
 	else{
 		printf(">> 걸어가므로 4분이 소요됩니다"); 
-		inputNum = tm.tm_hour * 60 + tm.tm_min + after + 4;
+		inputNum = tm.tm_hour * 60 + tm.tm_min + after +4; 
 	}
 	barobus();
 	terbus_citybus();
@@ -300,68 +300,40 @@ void time(){
 
 
 void terbus_citybus(){
+	
+	if(inputNum>1356){
+		gotoxy(7,21);
+		printf("환승 노선 : 불가능");
+		while (1) { 
+		int ch = keyControl();
+        switch (ch) {           
+        	case ENTER: {
+        		main();
+				break;
+			} 
+		}
+    }
+	}
+	
 	int i(0);
-	int min(99999999);
-	int d, k(0);
+	int min(9999);
+	int k(0);
 	int n, m, l;
 	int terbus[][80] = {{364, 396, 421, 446, 471, 496, 536, 576, 616, 656, 696, 736, 776, 816, 856, 896, 936, 976, 1016, 1056, 1096, 1136, 1176, 1216, 1256, 1296, 1321, 1356}, {387, 402, 414, 426, 438, 450, 462, 474, 486, 498, 510, 522, 534, 546, 558, 570, 583, 596, 610, 624, 638, 652, 666, 680, 694, 708, 722, 736, 749, 762, 776, 790, 804, 818, 832, 846, 860, 874, 888, 902, 916, 930, 944, 958, 972, 986, 1000, 1014, 1034, 1048, 1063, 1078, 1094, 1109, 1123, 1138, 1153, 1167, 1181, 1195, 1209, 1223, 1233, 1249, 1265, 1281, 1297, 1313, 1330, 1347}, {433, 474, 496, 518, 542, 572, 622, 648, 673, 701, 757, 780, 801, 829, 874, 904, 930, 954, 1004, 1028, 1081, 1105, 1133, 1161, 1191, 1217, 1241, 1273, 1301, 1334}, {408, 456, 597, 729, 852, 978, 1057}};
 	 for (int j=0; j<4; j++){
 		for( i=0 ; i<56; i++)
 		{
-			if(terbus[j][i] > inputNum){
-				d=terbus[j][i]-inputNum;
-			}
-			if(terbus[j][i] < inputNum){
-				d=inputNum-terbus[j][i];
-			}
-			if(d<min){
-				min = d;
+			if(0<(terbus[j][i]-inputNum) && (terbus[j][i]-inputNum)<min){
+				min = terbus[j][i]-inputNum;
 				k = terbus[j][i];
 				n=j;
 				l=i;
 			}
 		}
-		//311 360 355 358 
+		
 	}
-	while (k<inputNum){
-		min=999999;
-		d, k=0;
-		for (int j=0; j<4; j++){
-			for( i=0 ; i<56; i++)
-			{
-				if(terbus[j][i] > inputNum){
-					d=terbus[j][i]-inputNum;
-				}
-				if(terbus[j][i] < inputNum){
-					d=inputNum-terbus[j][i];
-				}
-				if(d<min){
-					min = d;
-					k = terbus[j][i];
-					n=j;
-					l=i;
-				}
-			}
-			//331 343 340 300
-		}
-		inputNum=inputNum+3; 
-		if(inputNum>1600){
-			gotoxy(7,21);
-			printf("환승 노선 : 불가능");
-			while (1) { 
-			int ch = keyControl();
-        	switch (ch) {           
-        		case ENTER: {
-        			main();
-					break;
-				} 
-			}
-        }
-    }
+
 			
-
-	}
-
 	if(n==0){
 		m=311;
 	}
@@ -380,21 +352,28 @@ void terbus_citybus(){
 	arrowter();
 	
 	inputNum=k+8;
+	printf("%d", inputNum);
 	
-	min=999999;
-	d, k=0;
-	int citybus[][80]={{405, 445, 485, 520, 565, 595, 625, 660, 705, 765, 810, 845, 875, 905, 945, 985, 1035, 1080, 1120, 1150, 1180, 1230, 1265, 1305, 1355}, {359, 381, 436, 546, 616, 676, 761, 836, 896, 966, 1046, 1106, 1166, 1226}, {380, 396, 412, 428, 444, 460, 476, 492, 508, 524, 540, 556, 572, 589, 606, 621, 638, 655, 673, 690, 708, 728, 747, 764, 782, 800, 817, 834, 852, 868, 884, 901, 917, 936, 953, 968, 986, 1004, 1025, 1043, 1061, 1079, 1097, 1115, 1133, 1151, 1167, 1182, 1200, 1218, 1236, 1254, 1272, 1290, 1308, 1338}, {400, 425, 455, 485, 515, 535, 565, 615, 675, 705, 745, 785, 825, 865, 905, 945, 985, 1025, 1065, 1105, 1145, 1185, 1225, 1255, 1275}}; 
+	if(inputNum>1355){
+		printf("불가능");
+		while (1) { 
+		int ch = keyControl();
+       	switch (ch) {           
+        	case ENTER: {
+        		main();
+				break;
+			} 
+			}
+        }
+    }
+
+	min=9999;
+	int citybus[][100]={{405, 445, 485, 520, 565, 595, 625, 660, 705, 765, 810, 845, 875, 905, 945, 985, 1035, 1080, 1120, 1150, 1180, 1230, 1265, 1305, 1355}, {359, 381, 436, 546, 616, 676, 761, 836, 896, 966, 1046, 1106, 1166, 1226}, {380, 396, 412, 428, 444, 460, 476, 492, 508, 524, 540, 556, 572, 589, 606, 621, 638, 655, 673, 690, 708, 728, 747, 764, 782, 800, 817, 834, 852, 868, 884, 901, 917, 936, 953, 968, 986, 1004, 1025, 1043, 1061, 1079, 1097, 1115, 1133, 1151, 1167, 1182, 1200, 1218, 1236, 1254, 1272, 1290, 1308, 1338}, {400, 425, 455, 485, 515, 535, 565, 615, 675, 705, 745, 785, 825, 865, 905, 945, 985, 1025, 1065, 1105, 1145, 1185, 1225, 1255, 1275}}; 
 	 for (int j=0; j<4; j++){
-		for( i=0 ; i<56; i++)
+		for( i=0 ; i<58; i++)
 		{
-			if(citybus[j][i] > inputNum){
-				d=citybus[j][i]-inputNum;
-			}
-			if(citybus[j][i] < inputNum){
-				d=inputNum-citybus[j][i];
-			}
-			if(d<min){
-				min = d;
+			if(0<(citybus[j][i]-inputNum) && (citybus[j][i]-inputNum)<min){
+				min = citybus[j][i]-inputNum;
 				k = citybus[j][i];
 				n=j;
 				l=i;
@@ -402,42 +381,7 @@ void terbus_citybus(){
 		}
 		//311 360 355 358 
 	}
-	while (k<inputNum){
-		min=999999;
-		d, k=0;
-		for (int j=0; j<4; j++){
-			for( i=0 ; i<56; i++)
-			{
-				if(citybus[j][i] > inputNum){
-					d=citybus[j][i]-inputNum;
-				}
-				if(citybus[j][i] < inputNum){
-					d=inputNum-citybus[j][i];
-				}
-				if(d<min){
-					min = d;
-					k = citybus[j][i];
-					n=j;
-					l=i;
-				}
-			}
-			//331 343 340 300
-		}
-		inputNum=inputNum+3;
-		if(inputNum>1550){
-			printf("불가능");
-			while (1) { 
-			int ch = keyControl();
-       		switch (ch) {           
-        		case ENTER: {
-        			main();
-					break;
-			} 
-			}
-        }
-    }
 			
-	}
 	if(n==0){
 		m=331;
 	}
@@ -456,6 +400,20 @@ void terbus_citybus(){
 }
 
 void barobus(){
+	
+	if(inputNum>1344){
+		gotoxy(7,21);
+		printf("직행, 기본 노선 : 불가능");
+		while (1) { 
+		int ch = keyControl();
+        switch (ch) {           
+        	case ENTER: {
+        		main();
+				break;
+			} 
+		}
+    }
+	}
 	int i(0);
 	int min(99999999);
 	int d, k(0);
