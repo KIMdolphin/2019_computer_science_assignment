@@ -29,7 +29,7 @@ int now;
 int inputNum;
 void barobus();
 void arrowbaro();
-void terbus();
+void terbus_citybus();
 void arrowter(); 
 void arrowcity();
 
@@ -245,7 +245,7 @@ void start(){
 		inputNum = tm.tm_hour * 60 + tm.tm_min + after + 4;
 	}
 	barobus();
-	terbus();
+	terbus_citybus();
 //	gotoxy(7,18);
 //	readfile();
 	while (1) { 
@@ -324,10 +324,8 @@ void terbus_citybus(){
 		//311 360 355 358 
 	}
 	while (k<inputNum){
-		int i(0);
-		int min(99999999);
-		int d, k(0);
-		int n, m, l;
+		min=999999;
+		d, k=0;
 		for (int j=0; j<4; j++){
 			for( i=0 ; i<56; i++)
 			{
@@ -346,7 +344,22 @@ void terbus_citybus(){
 			}
 			//331 343 340 300
 		}
-		inputNum=inputNum+5;
+		inputNum=inputNum+3; 
+		if(inputNum>1600){
+			gotoxy(7,21);
+			printf("환승 노선 : 불가능");
+			while (1) { 
+			int ch = keyControl();
+        	switch (ch) {           
+        		case ENTER: {
+        			main();
+					break;
+				} 
+			}
+        }
+    }
+			
+
 	}
 
 	if(n==0){
@@ -366,7 +379,7 @@ void terbus_citybus(){
 	printf("환승 노선 : %d번 %d시%d분", m, k/60, k%60);
 	arrowter();
 	
-	inputNum=k;
+	inputNum=k+8;
 	
 	min=999999;
 	d, k=0;
@@ -390,10 +403,8 @@ void terbus_citybus(){
 		//311 360 355 358 
 	}
 	while (k<inputNum){
-		int i(0);
-		int min(99999999);
-		int d, k(0);
-		int n, m, l;
+		min=999999;
+		d, k=0;
 		for (int j=0; j<4; j++){
 			for( i=0 ; i<56; i++)
 			{
@@ -412,7 +423,20 @@ void terbus_citybus(){
 			}
 			//331 343 340 300
 		}
-		inputNum=inputNum+5;
+		inputNum=inputNum+3;
+		if(inputNum>1550){
+			printf("불가능");
+			while (1) { 
+			int ch = keyControl();
+       		switch (ch) {           
+        		case ENTER: {
+        			main();
+					break;
+			} 
+			}
+        }
+    }
+			
 	}
 	if(n==0){
 		m=331;
@@ -428,7 +452,7 @@ void terbus_citybus(){
 	}
 	printf("%d번 %d시%d분", m, k/60, k%60);
 	arrowcity(); 
-	printf("%d시%d분 도착", (k+6)/60, (k+12)%60);
+	printf("%d시%d분 도착", (k+6)/60, (k+6)%60);
 }
 
 void barobus(){
