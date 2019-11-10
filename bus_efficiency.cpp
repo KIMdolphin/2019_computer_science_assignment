@@ -346,13 +346,13 @@ void terbus_citybus(){
 	else if (n==3){
 		m=358;
 	}
-		
-	gotoxy(7,21);
+	gotoxy(7,21);	
+	printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	gotoxy(7,22);
 	printf("환승 노선 : %d번 %d시%d분", m, k/60, k%60);
 	arrowter();
 	
 	inputNum=k+8;
-	printf("%d", inputNum);
 	
 	if(inputNum>1355){
 		printf("불가능");
@@ -396,7 +396,7 @@ void terbus_citybus(){
 	}
 	printf("%d번 %d시%d분", m, k/60, k%60);
 	arrowcity(); 
-	printf("%d시%d분 도착", (k+6)/60, (k+6)%60);
+	printf("%d시%d분 도착 ", (k+6)/60, (k+6)%60);
 }
 
 void barobus(){
@@ -539,6 +539,7 @@ void arrowcity(){
 	printf("> ");
 	Sleep(100);
 }
+
 //int readfile(){
 //	Sleep(1000);
 //	FILE *fps;
